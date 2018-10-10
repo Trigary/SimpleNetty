@@ -1,0 +1,9 @@
+.idea
+target
+*.iml
+dependecy-reduced-pom.xml
+
+SimpleNettyExample/.idea
+SimpleNettyExample/target
+SimpleNettyExample/*.iml
+SimpleNettyExample/dependency-reduced-pom.xml

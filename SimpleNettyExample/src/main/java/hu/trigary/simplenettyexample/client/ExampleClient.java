@@ -56,7 +56,7 @@ public class ExampleClient extends Client<Packet> {
 	private final Scanner scanner;
 	private final String host;
 	private final int port;
-	private volatile boolean loggedIn = false;
+	private boolean loggedIn = false;
 	private volatile boolean stopping = false;
 	
 	public ExampleClient(Scanner scanner, String host, int port) {

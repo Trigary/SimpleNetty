@@ -11,6 +11,7 @@ import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.codec.LengthFieldPrepender;
 import io.netty.util.internal.PlatformDependent;
 
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Consumer;
 
 /**
@@ -23,7 +24,7 @@ public class Client<D> {
 	private Bootstrap bootstrap;
 	private EventLoopGroup workerGroup;
 	private volatile ChannelHandlerContext context;
-	private volatile boolean initialized = false;
+	private final AtomicBoolean initialized = new AtomicBoolean(false);
 	
 	private volatile Consumer<Bootstrap> onConfigured;
 	private volatile Consumer<SocketChannel> onChannelInitialized;
@@ -110,8 +111,7 @@ public class Client<D> {
 	 * @throws InterruptedException if the thread gets interrupted while connecting
 	 */
 	public boolean connect(String host, int port, long timeoutMillis) throws InterruptedException {
-		if (!initialized) {
-			initialized = true;
+		if (!initialized.getAndSet(true)) {
 			bootstrap = new Bootstrap();
 			workerGroup = new NioEventLoopGroup();
 			
@@ -168,8 +168,9 @@ public class Client<D> {
 	 * @throws InterruptedException if the thread gets interrupted while the {@link EventLoopGroup} is being shut down
 	 */
 	public void uninitialize() throws InterruptedException {
-		initialized = false;
-		workerGroup.shutdownGracefully().sync();
+		if (initialized.getAndSet(false)) {
+			workerGroup.shutdownGracefully().sync();
+		}
 	}
 	
 	/**

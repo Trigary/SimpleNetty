@@ -16,6 +16,4 @@ and how these actions modify the state.
 The stop method mustn't be called from an event listener (onXY),
 otherwise a deadlock will happen.
 
-The setters for the event listeners (onXY) can be called from any
-threads, but due to a lack of synchronization the old event handler
-may be called directly after a new one has been set.
+The setters for the event listeners (onXY) can be called from any thread.

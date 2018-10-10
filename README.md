@@ -24,9 +24,7 @@ Netty directly, giving you the same freedom as Netty provides.
 
 ## Documentation
 
-This wrapper is fully documented but in case the JavaDocs are not
-satisfactory, the simple source code should answer all questions.
-The following two documents may also help you:
+ - [JavaDocs](http://trigary.hu/javadocs/simple-netty/)
  - [Server reference](server.md)
  - [Client reference](client.md)
 
